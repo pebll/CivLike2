@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-public class TileSO : MonoBehaviour
+[CreateAssetMenu(fileName = "New Tile", menuName = "Tile")]
+public class TileSO : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Tile Tile;
+    public string Description;
+    public int Yield;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
