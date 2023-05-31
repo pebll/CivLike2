@@ -9,5 +9,6 @@ public class TileSO : ScriptableObject
     public Tile Tile;
     public string Description;
     public int Yield;
+    public string DisplayName;
 
 }

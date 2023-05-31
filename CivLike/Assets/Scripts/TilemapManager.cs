@@ -1,9 +1,8 @@
-using System.Collections;
+using Mono.Cecil;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
+
 
 public class TilemapManager : MonoBehaviour
 {
@@ -12,11 +11,18 @@ public class TilemapManager : MonoBehaviour
     private GameTile[,] _tiles;
     private int _mapWidth;
     private int _mapHeight;
+    private Dictionary<string, TileSO> _tileDict = new Dictionary<string, TileSO>();
+    public Dictionary<string, TileSO> TileDict => _tileDict;
 
     private void Awake()
     {
         Instance= this;
-        _tilemap= GetComponent<Tilemap>();       
+        _tilemap= GetComponent<Tilemap>();
+        TileSO[] tileArray = Resources.LoadAll<TileSO>("Tiles");
+        foreach(TileSO tileSO in tileArray)
+        {
+            _tileDict.Add(tileSO.name, tileSO);
+        }
     }
 
     public void Setup(int mapWidth, int mapHeight)

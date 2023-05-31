@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99b462bec55b6764fa5560a2af189b80, type: 3}
-  m_Name: grasslands
+  m_Name: Mountain
   m_EditorClassIdentifier: 
-  Tile: {fileID: 11400000, guid: 5f0620f9ae508a04aa99c8fe93c88ee1, type: 2}
-  Description: a cool grass tile
-  Yield: 2
+  Tile: {fileID: 11400000, guid: 2cb5a867eea1ff042b34e87850ab7bde, type: 2}
+  Description: climb climb climb
+  Yield: 6
