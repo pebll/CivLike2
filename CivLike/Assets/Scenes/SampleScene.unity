@@ -221,7 +221,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -245,7 +245,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5, y: 2.7, z: -10}
+  m_LocalPosition: {x: 7.89, y: 5.8, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -281,9 +281,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16ab17e1377210347bf7a6ad097e9d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _grasslands: {fileID: 11400000, guid: 377cfaafebac02a42b74f2a505c91baf, type: 2}
-  _mapWidth: 13
-  _mapHeight: 7
+  _mapWidth: 22
+  _mapHeight: 14
+  _oceanAmount: 0.1
+  _seaAmount: 0.4
+  _desertAmount: 0.3
+  _grasslandsAmount: 0.7
+  _mountainAmount: 0.2
+  _hillsAmount: 0.4
+  _forestAmount: 0.2
+  _groveAmount: 0.4
+  _WaterLevelScale: 2.5
+  _TemperatureScale: 2.5
+  _ElevationScale: 2.5
+  _VegetationScale: 2.5
+  seed: 0
 --- !u!4 &856403834
 Transform:
   m_ObjectHideFlags: 0

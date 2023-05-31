@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEditor;
 
 public class MapGenerator : MonoBehaviour
 {    
@@ -11,18 +12,51 @@ public class MapGenerator : MonoBehaviour
     private float[,,] _noiseMaps;
     private TileSO[,] _chosenTiles;
     private Dictionary<string, TileSO> _tileDict;
+    [Space(10)]
+    [SerializeField][Range(0, 1)] private float _oceanAmount = 0.1f;
+    [SerializeField][Range(0, 1)] private float _seaAmount =0.4f;
+    [SerializeField][Range(0, 1)] private float _desertAmount = 0.3f;
+    [SerializeField][Range(0, 1)] private float _grasslandsAmount = 0.7f;
+    [SerializeField][Range(0, 1)] private float _mountainAmount = 0.2f;
+    [SerializeField][Range(0, 1)] private float _hillsAmount = 0.4f;
+    [SerializeField][Range(0, 1)] private float _forestAmount = 0.2f;
+    [SerializeField][Range(0, 1)] private float _groveAmount = 0.4f;
+
+
+    [Space(10)]
+    [SerializeField][Range(0, 5)] private float _WaterLevelScale = 2.5f;
+    [SerializeField][Range(0, 5)] private float _TemperatureScale = 2.5f;
+    [SerializeField][Range(0, 5)] private float _ElevationScale = 2.5f;
+    [SerializeField][Range(0, 5)] private float _VegetationScale = 2.5f;
+
+    [Space(10)]
+    [SerializeField][Range(0, 1000000)] private int seed;
+
+    private float[] _scales;
 
 
     void Start()
     {
-        _tileDict = TilemapManager.Instance.TileDict;
-        GenerateMap(_mapWidth, _mapHeight);      
+        _tileDict = TilemapManager.Instance.TileDict;       
+        GenerateMap(_mapWidth, _mapHeight, seed);      
     }
 
-    void GenerateMap(int width, int height)
+    private void Update()
+    {
+
+        _scales = new float[] { _WaterLevelScale, _TemperatureScale, _ElevationScale, _VegetationScale };        
+        GenerateMap(_mapWidth, _mapHeight, seed);
+        
+    }
+
+
+
+    void GenerateMap(int width, int height, int seed = 0)
     {
         // Setup
-        _noiseMaps = GenerateNoiseMaps(); // 0: Water level 1: Temperature, 2: Elevation 3: Vegetation,        
+        if (seed == 0) { seed = Random.Range(0, 1000000); }
+        Random.InitState(seed);
+        _noiseMaps = GenerateNoiseMaps(_scales); // 0: Water level 1: Temperature, 2: Elevation 3: Vegetation,        
         _chosenTiles = new TileSO[width, height];       
         TilemapManager.Instance.Setup(_mapWidth, _mapHeight);
         // Choose Tiles
@@ -31,6 +65,12 @@ public class MapGenerator : MonoBehaviour
             switch(i)
             {
                 case 0: GenerateWaterLevel(i);
+                    break;
+                case 1: GenerateTemperature(i);
+                    break;
+                case 2: GenerateElevation(i);
+                    break;
+                case 3: GenerateVegetation(i);
                     break;
             }
         }
@@ -57,11 +97,11 @@ public class MapGenerator : MonoBehaviour
             for (int y = 0; y < _mapHeight; y++)
             {
                 float noiseValue = _noiseMaps[mapIndex, x, y];
-                if (noiseValue < 0.1f)
+                if (noiseValue < _oceanAmount)
                 {
                     _chosenTiles[x, y] = _tileDict["Ocean"];
                 }
-                else if (noiseValue < 0.4f)
+                else if (noiseValue < _seaAmount)
                 {
                     _chosenTiles[x, y] = _tileDict["Sea"];
                 }
@@ -80,10 +120,25 @@ public class MapGenerator : MonoBehaviour
             for (int y = 0; y < _mapHeight; y++)
             {
                 float noiseValue = _noiseMaps[mapIndex, x, y];
-                if (noiseValue < 0.3f)
+                switch (_chosenTiles[x, y].name)
                 {
-                    //_chosenTiles[x, y] = _grasslands;
-                }
+                    case "Grasslands":
+                        if (noiseValue < _desertAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["Desert"];
+                        }
+                        else if (noiseValue >= _grasslandsAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["Tundra"];
+                        }
+                        break;
+                    case "Sea":
+                        if (noiseValue >= _grasslandsAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["Ice"];
+                        }
+                    break;
+                }                                       
             }
         }
     }
@@ -95,9 +150,39 @@ public class MapGenerator : MonoBehaviour
             for (int y = 0; y < _mapHeight; y++)
             {
                 float noiseValue = _noiseMaps[mapIndex, x, y];
-                if (noiseValue < 0.3f)
+                switch (_chosenTiles[x, y].name)
                 {
-                    //_chosenTiles[x, y] = _grasslands;
+                    case "Grasslands":
+                        if (noiseValue < _mountainAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["GrasslandsMountain"];
+                        }
+                        else if (noiseValue < _hillsAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["GrasslandsHills"];
+                        }
+                        break;
+                    case "Desert":
+                        if (noiseValue < _mountainAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["DesertMountain"];
+                        }
+                        else if (noiseValue < _hillsAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["DesertHills"];
+                        }
+                        break;
+                    case "Tundra":
+                        if (noiseValue < _mountainAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["TundraMountain"];
+                        }
+                        else if (noiseValue < _hillsAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["TundraHills"];
+                        }
+                        break;
+
                 }
             }
         }
@@ -110,18 +195,70 @@ public class MapGenerator : MonoBehaviour
             for (int y = 0; y < _mapHeight; y++)
             {
                 float noiseValue = _noiseMaps[mapIndex, x, y];
-                if (noiseValue < 0.3f)
+                switch (_chosenTiles[x, y].name)
                 {
-                    //_chosenTiles[x, y] = _grasslands;
+                    case "Grasslands":
+                        if (noiseValue < _forestAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["GrasslandsForest"];
+                        }
+                        else if (noiseValue < _groveAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["GrasslandsGrove"];
+                        }
+                        break;
+                    case "Desert":
+                        if (noiseValue < _forestAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["DesertForest"];
+                        }
+                        else if (noiseValue < _groveAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["DesertGrove"];
+                        }
+                        break;
+                    case "Tundra":
+                        if (noiseValue < _forestAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["TundraForest"];
+                        }
+                        else if (noiseValue < _groveAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["TundraGrove"];
+                        }
+                        break;
+                        break;
+                    case "GrasslandsHills":
+                        if (noiseValue < _groveAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["GrasslandsHillsGrove"];
+                        }
+                        break;
+                    case "DesertHills":
+                        if (noiseValue < _groveAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["DesertHillsGrove"];
+                        }
+                        break;
+                    case "TundraHills":                            
+                        if (noiseValue < _groveAmount)
+                        {
+                            _chosenTiles[x, y] = _tileDict["TundraHillsGrove"];
+                        }
+                        break;
+
+
+
                 }
             }
         }
     }
-    private float[,,] GenerateNoiseMaps(int amount = NOISEMAP_AMOUNT, int scale = 5)
+    private float[,,] GenerateNoiseMaps(float[] scales)
     {
-        float[,,] noiseMaps = new float[amount, _mapWidth, _mapHeight];
-        for(int i = 0; i < amount; i++)
+        float[,,] noiseMaps = new float[NOISEMAP_AMOUNT, _mapWidth, _mapHeight];
+        for(int i = 0; i < NOISEMAP_AMOUNT; i++)
         {
+            float scale = scales[i];
             // generate a perlin noise map with random offsets that is then represented on the array
             float offsetX = Random.Range(0, 1000000f);
             float offsetY = Random.Range(0, 1000000f);
@@ -129,7 +266,7 @@ public class MapGenerator : MonoBehaviour
             {
                 for (int y = 0; y < _mapHeight; y++)
                 {
-                    noiseMaps[i, x, y] = Mathf.PerlinNoise(offsetX + (float)x / _mapWidth * scale, offsetY + (float)y / _mapHeight * scale);
+                    noiseMaps[i, x, y] = Mathf.PerlinNoise(offsetX + (float)x  / 10 * scale, offsetY + (float)y / 10 * scale);
                 }
             }
         }
