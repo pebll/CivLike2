@@ -28,6 +28,7 @@ public class MapGenerator : MonoBehaviour
                 TilemapManager.Instance.AddTile(tile);
             }
         }
+        TilemapManager.Instance.Load();
     }
     
 }

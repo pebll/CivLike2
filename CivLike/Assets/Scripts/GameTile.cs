@@ -13,6 +13,7 @@ public class GameTile
     private Vector3Int _position;
     public Vector3Int Position => _position;
     public string Description => _description;
+    public Tile Tile => _tile;
     
     public GameTile(TileSO tileSO, Vector3Int position)
     {
@@ -25,8 +26,8 @@ public class GameTile
 
         // Tile position
         _position = position;
-        Vector3Int tilePosition = new Vector3Int(position.y, position.x, 0);
-        TilemapManager.Instance.SetTile(tilePosition, _tile);
+        
+        
     }
 
 

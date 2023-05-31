@@ -245,12 +245,59 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 4.5, y: 2.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &856403832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 856403834}
+  - component: {fileID: 856403833}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &856403833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856403832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ab17e1377210347bf7a6ad097e9d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _grasslands: {fileID: 11400000, guid: 377cfaafebac02a42b74f2a505c91baf, type: 2}
+  _mapWidth: 13
+  _mapHeight: 7
+--- !u!4 &856403834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856403832}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1715354076
 GameObject:
@@ -263,6 +310,7 @@ GameObject:
   - component: {fileID: 1715354077}
   - component: {fileID: 1715354079}
   - component: {fileID: 1715354078}
+  - component: {fileID: 1715354080}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -481,22 +529,22 @@ Tilemap:
       e33: 6.9e-43
   - m_RefCount: 0
     m_Data:
-      e00: -1.6331125e-24
-      e01: NaN
-      e02: -2.9270154e-36
-      e03: 0
-      e10: 3.01e-43
-      e11: NaN
-      e12: 4.5905e-41
-      e13: 0
-      e20: NaN
-      e21: 0
-      e22: -1.6331109e-24
-      e23: 0
-      e30: 0
-      e31: 7.34684e-40
-      e32: 3.01e-43
-      e33: 1
+      e00: 990
+      e01: 0
+      e02: 3.0700943e+29
+      e03: 3.0700943e+29
+      e10: 0
+      e11: 0
+      e12: 6.88e-43
+      e13: 6.88e-43
+      e20: -2.9270154e-36
+      e21: 1e-45
+      e22: -0.0000000010317907
+      e23: -8.603189e+9
+      e30: 4.5905e-41
+      e31: 0
+      e32: 6.88e-43
+      e33: 6.91e-43
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
@@ -524,3 +572,15 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1715354080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715354076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6652a0ed81a85c44b692f1a6e83e0ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
