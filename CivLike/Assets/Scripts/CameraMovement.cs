@@ -8,7 +8,7 @@ public class CameraMovement : MonoBehaviour
     private InputAction movement;
     private Transform cameraTransform;
 
-
+    [SerializeField][Tooltip("Enable/Disable Edge Movement")] private bool _edgeMovement = true;
     [SerializeField]
     private float maxSpeed = 5f;
     private float speed;
@@ -22,11 +22,9 @@ public class CameraMovement : MonoBehaviour
     [SerializeField]
     private float zoomDampening = 7.5f;
     [SerializeField]
-    private float minHeight = 5f;
+    private float minHeight = -5f;
     [SerializeField]
-    private float maxHeight = 50f;
-    [SerializeField]
-    private float zoomSpeed = 2f;
+    private float maxHeight = -50f;
 
 
     [SerializeField]
@@ -74,7 +72,7 @@ public class CameraMovement : MonoBehaviour
     {
         //inputs
         GetKeyboardMovement();
-        CheckMouseAtScreenEdge();
+        if (_edgeMovement) { CheckMouseAtScreenEdge(); }
 
         //move base and camera objects
         UpdateVelocity();
@@ -142,15 +140,15 @@ public class CameraMovement : MonoBehaviour
 
     private void ZoomCamera(InputAction.CallbackContext obj)
     {
-        float inputValue = -obj.ReadValue<Vector2>().y / 100f;
+        float inputValue = obj.ReadValue<Vector2>().y / 100f;
 
         if (Mathf.Abs(inputValue) > 0.1f)
         {
             zoomHeight = cameraTransform.localPosition.z + inputValue * stepSize;
 
-            if (zoomHeight < minHeight)
+            if (zoomHeight > minHeight)
                 zoomHeight = minHeight;
-            else if (zoomHeight > maxHeight)
+            else if (zoomHeight < maxHeight)
                 zoomHeight = maxHeight;
         }
     }
@@ -159,8 +157,6 @@ public class CameraMovement : MonoBehaviour
     {
         //set zoom target
         Vector3 zoomTarget = new Vector3(cameraTransform.localPosition.x, cameraTransform.localPosition.y, zoomHeight);
-        //add vector for forward/backward zoom
-        zoomTarget -= zoomSpeed * (zoomHeight - cameraTransform.localPosition.z) * Vector3.forward;
 
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, zoomTarget, Time.deltaTime * zoomDampening);
         
