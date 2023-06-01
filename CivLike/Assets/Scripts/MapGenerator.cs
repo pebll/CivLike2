@@ -37,6 +37,7 @@ public class MapGenerator : MonoBehaviour
 
     void Start()
     {
+        _scales = new float[] { _WaterLevelScale, _TemperatureScale, _ElevationScale, _VegetationScale };
         _tileDict = TilemapManager.Instance.TileDict;       
         GenerateMap(_mapWidth, _mapHeight, seed);      
     }
@@ -226,8 +227,7 @@ public class MapGenerator : MonoBehaviour
                         {
                             _chosenTiles[x, y] = _tileDict["TundraGrove"];
                         }
-                        break;
-                        break;
+                        break;                   
                     case "GrasslandsHills":
                         if (noiseValue < _groveAmount)
                         {
