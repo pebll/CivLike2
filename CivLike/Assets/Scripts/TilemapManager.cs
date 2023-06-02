@@ -15,6 +15,7 @@ public class TilemapManager : MonoBehaviour
     public Dictionary<string, TileSO> TileDict => _tileDict;
 
     private GameTile _mouseHoverTile;
+    public GameTile MouseHoverTile => _mouseHoverTile;
 
     private void Awake()
     {
@@ -62,11 +63,8 @@ public class TilemapManager : MonoBehaviour
     }
 
     private void UpdateMouseHoverTile()
-    {
-        Vector3 mouseScreenPos = Input.mousePosition;
-        mouseScreenPos.z = -Camera.main.transform.position.z;
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-        Vector3Int tilePosition = _tilemap.WorldToCell(mouseWorldPos);
+    {      
+        Vector3Int tilePosition = ScreenToTilePos(Input.mousePosition);
         if (tilePosition.x < 0 || tilePosition.x >= _mapWidth || tilePosition.y < 0 || tilePosition.y >= _mapHeight)
             {
             _mouseHoverTile = null;
@@ -75,6 +73,31 @@ public class TilemapManager : MonoBehaviour
             {
             _mouseHoverTile = _tiles[tilePosition.x, tilePosition.y];
         }
+        Debug.Log(tilePosition);
+    }
+
+    public Vector3Int ScreenToTilePos(Vector3 screenPos)
+    {
+        screenPos.z = -Camera.main.transform.position.z;
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+        Vector3Int tilePos = _tilemap.WorldToCell(worldPos);
+        tilePos = new Vector3Int(tilePos.y, tilePos.x,0);
+        return tilePos;
+    }
+
+    public Vector3 TileToScreenPos(Vector3Int tilePos)
+    {
+        tilePos = new Vector3Int(tilePos.y, tilePos.x, 0);
+        Vector3 worldPos = _tilemap.CellToWorld(tilePos);
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+        return screenPos;
+    }
+
+    public GameTile GetTileFromPos(Vector3Int tilePos)
+    {
+        if (tilePos.x < 0 || tilePos.x >= _mapWidth || tilePos.y < 0 || tilePos.y >= _mapHeight)
+            return null;
+        return _tiles[tilePos.x, tilePos.y];
     }
     
 
