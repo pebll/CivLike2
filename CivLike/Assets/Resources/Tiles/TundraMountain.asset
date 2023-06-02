@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tile: {fileID: 11400000, guid: 7858e4a4a7be60443aa0e90d627d4f28, type: 2}
   Description: snowy top :)
-  Yield: 0
   DisplayName: 
+  Yield: 030000000400000004000000

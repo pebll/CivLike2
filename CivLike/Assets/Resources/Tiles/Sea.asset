@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tile: {fileID: 11400000, guid: 5654464c30d1a5c4dbb37751af6e555c, type: 2}
   Description: be careful with the sharks
-  Yield: 1
+  DisplayName: 
+  Yield: 0000000000000000

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tile: {fileID: 11400000, guid: 2cb5a867eea1ff042b34e87850ab7bde, type: 2}
   Description: standart mountain
-  Yield: 0
   DisplayName: 
+  Yield: 0400000004000000

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tile: {fileID: 11400000, guid: b43355d427f528d4687e06400e028e8e, type: 2}
   Description: a lot of trees
-  Yield: 0
   DisplayName: 
+  Yield: 0100000005000000

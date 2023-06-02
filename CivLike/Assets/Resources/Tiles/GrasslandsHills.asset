@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tile: {fileID: 11400000, guid: 83aae37a2c85f5d408cc417b0bbd9a29, type: 2}
   Description: rocky balboa
-  Yield: 0
   DisplayName: 
+  Yield: 0100000004000000

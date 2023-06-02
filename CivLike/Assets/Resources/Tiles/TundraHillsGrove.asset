@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tile: {fileID: 11400000, guid: 4a677de192184fc4596139518b12a62c, type: 2}
   Description: 
-  Yield: 0
   DisplayName: 
+  Yield: 030000000500000004000000

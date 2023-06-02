@@ -8,7 +8,7 @@ public class GameTile
 {
     private Tile _tile;
     private string _description;
-    private int _yield;
+    private Dictionary<ResourceManager.Resource, int> _yield;
     private string _name;
     private Vector3Int _position;
     public Vector3Int Position => _position;
@@ -20,7 +20,7 @@ public class GameTile
         // Tile properties
         _tile = tileSO.Tile;
         _description = tileSO.Description;
-        _yield = tileSO.Yield;
+        _yield = ResourceManager.Instance.GetResourceDict(tileSO.Yield);
         _name = tileSO.name;
   
 
@@ -30,6 +30,6 @@ public class GameTile
         
     }
 
+   
 
-    
 }
