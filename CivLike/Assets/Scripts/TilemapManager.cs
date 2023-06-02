@@ -15,7 +15,9 @@ public class TilemapManager : MonoBehaviour
     public Dictionary<string, TileSO> TileDict => _tileDict;
 
     private GameTile _mouseHoverTile;
+    private GameTile _lastMouseHoverTile;
     public GameTile MouseHoverTile => _mouseHoverTile;
+    public GameTile LastMouseHoverTile => _lastMouseHoverTile;
 
     private void Awake()
     {
@@ -63,7 +65,8 @@ public class TilemapManager : MonoBehaviour
     }
 
     private void UpdateMouseHoverTile()
-    {      
+    {   
+        _lastMouseHoverTile = _mouseHoverTile;
         Vector3Int tilePosition = ScreenToTilePos(Input.mousePosition);
         if (tilePosition.x < 0 || tilePosition.x >= _mapWidth || tilePosition.y < 0 || tilePosition.y >= _mapHeight)
             {
@@ -73,7 +76,6 @@ public class TilemapManager : MonoBehaviour
             {
             _mouseHoverTile = _tiles[tilePosition.x, tilePosition.y];
         }
-        Debug.Log(tilePosition);
     }
 
     public Vector3Int ScreenToTilePos(Vector3 screenPos)

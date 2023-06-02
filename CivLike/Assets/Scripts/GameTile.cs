@@ -14,6 +14,7 @@ public class GameTile
     public Vector3Int Position => _position;
     public string Description => _description;
     public Tile Tile => _tile;
+    public Dictionary<ResourceManager.Resource, int> Yield => _yield;
     
     public GameTile(TileSO tileSO, Vector3Int position)
     {
