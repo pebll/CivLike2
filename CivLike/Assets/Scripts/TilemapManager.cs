@@ -14,6 +14,8 @@ public class TilemapManager : MonoBehaviour
     private Dictionary<string, TileSO> _tileDict = new Dictionary<string, TileSO>();
     public Dictionary<string, TileSO> TileDict => _tileDict;
 
+    private GameTile _mouseHoverTile;
+
     private void Awake()
     {
         Instance= this;
@@ -23,6 +25,11 @@ public class TilemapManager : MonoBehaviour
         {
             _tileDict.Add(tileSO.name, tileSO);
         }
+    }
+
+    private void Update()
+    {
+        UpdateMouseHoverTile();
     }
 
     public void Setup(int mapWidth, int mapHeight)
@@ -53,4 +60,23 @@ public class TilemapManager : MonoBehaviour
             }
         }       
     }
+
+    private void UpdateMouseHoverTile()
+    {
+        Vector3 mouseScreenPos = Input.mousePosition;
+        mouseScreenPos.z = -Camera.main.transform.position.z;
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+        Vector3Int tilePosition = _tilemap.WorldToCell(mouseWorldPos);
+        if (tilePosition.x < 0 || tilePosition.x >= _mapWidth || tilePosition.y < 0 || tilePosition.y >= _mapHeight)
+            {
+            _mouseHoverTile = null;
+        }
+        else
+            {
+            _mouseHoverTile = _tiles[tilePosition.x, tilePosition.y];
+        }
+    }
+    
+
+
 }
