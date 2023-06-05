@@ -20,7 +20,9 @@ public class ResourceDisplay : MonoBehaviour
     [SerializeField] private float _baseWidth = 0f;
     [SerializeField] private float _resourceSize = 10f;
     [SerializeField] private float _resourceSpacing = 5f;
-    
+
+
+    public const string TILE_ID = "tile";
 
     private Dictionary<string, GameObject> _displayPanels = new Dictionary<string, GameObject>();
     private Dictionary<string, Sprite> _sprites= new Dictionary<string, Sprite>();
@@ -45,6 +47,14 @@ public class ResourceDisplay : MonoBehaviour
         displayPanel.name = id;
         _displayPanels[id] = displayPanel;
         // construct the panel
+
+        UpdateDisplayPanel(id, resources);
+
+    }
+
+    private void UpdateDisplayPanel(string id, Dictionary<ResourceManager.Resource, int> resources)
+    {
+        GameObject displayPanel = _displayPanels[id];
         int resourceAmount = 0;
         List<Image> resourceImages = new List<Image>();
         foreach (KeyValuePair<ResourceManager.Resource, int> entry in resources)
@@ -53,7 +63,7 @@ public class ResourceDisplay : MonoBehaviour
             int count = entry.Value;
             if (count < 3) // show them individualy
             {
-                for(int i = 0; i< count; i++)
+                for (int i = 0; i < count; i++)
                 {
                     resourceAmount++;
                     // add a resource image
@@ -62,7 +72,7 @@ public class ResourceDisplay : MonoBehaviour
                     Vector3 imagePos = new Vector3(resourceAmount * (_resourceSize + _resourceSpacing) - _resourceSpacing, 0, 0);
                     resourceImage.transform.localPosition = imagePos;
                     resourceImages.Add(resourceImage);
-                }                       
+                }
             }
             else
             {
@@ -73,12 +83,21 @@ public class ResourceDisplay : MonoBehaviour
         //_displayPanel.transform.GetChild(0).localScale = new Vector3(_baseWidth + resourceAmount * (_resourceSize + _resourceSpacing) - _resourceSpacing, 1, 1);
         _displayPanel.transform.GetChild(0).gameObject.SetActive(false);
         //shift it into place
-        Vector3 shiftAmount = new Vector3((_baseWidth + resourceAmount * (_resourceSize + _resourceSpacing))/2, 0, 0);
+        Vector3 shiftAmount = new Vector3((_baseWidth + resourceAmount * (_resourceSize + _resourceSpacing)) / 2, 0, 0);
         foreach (Image resourceImage in resourceImages)
         {
             resourceImage.transform.localPosition -= shiftAmount;
         }
+    }
 
+    public void HideDisplayPanel(string id)
+    {
+        _displayPanels[id].SetActive(false);
+    }
+
+    public void ShowDisplayPanel(string id)
+    {
+        _displayPanels[id].SetActive(true);
     }
  
     private void RemoveDisplayPanel(string id)
@@ -86,6 +105,7 @@ public class ResourceDisplay : MonoBehaviour
         DestroyAll(_displayPanels[id].gameObject);
         _displayPanels.Remove(id);
     }
+   
     public void AddDisplayPanel(GameTile tile)
     {
         string id = getTileID(tile);
@@ -101,7 +121,7 @@ public class ResourceDisplay : MonoBehaviour
 
     public string getTileID(GameTile tile)
     {
-        return "tile" + tile.Position.ToString();
+        return TILE_ID + tile.Position.ToString();
     }
 
     private void DestroyAll(GameObject obj)
@@ -111,6 +131,19 @@ public class ResourceDisplay : MonoBehaviour
             DestroyAll(child.gameObject);
         }
         Destroy(obj);
+    }
+
+    public List<string> GetAllIDsOfType(string type)
+    {
+        List<string> displays = new List<string>();
+        foreach (KeyValuePair<string, GameObject> entry in _displayPanels)
+        {
+            if (entry.Key.Contains(type))
+            {
+                displays.Add(entry.Key);
+            }
+        }
+        return displays;
     }
 
 

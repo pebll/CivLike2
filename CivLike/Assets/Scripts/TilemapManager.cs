@@ -13,6 +13,9 @@ public class TilemapManager : MonoBehaviour
     private int _mapHeight;
     private Dictionary<string, TileSO> _tileDict = new Dictionary<string, TileSO>();
     public Dictionary<string, TileSO> TileDict => _tileDict;
+    public GameTile[,] Tiles => _tiles;
+
+    public (int width, int height) MapSize => (_mapWidth, _mapHeight);
 
     private GameTile _mouseHoverTile;
     private GameTile _lastMouseHoverTile;

@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UIBuilder/ussboi.uss?fileID=7433441132597879392&amp;guid=0d9508c858f8dce428483664fa6028d5&amp;type=3#ussboi" />
+    <ui:Button text="Show Yields" display-tooltip-when-elided="true" name="show-yields-button" tooltip="Show/Hide Tile Yields" focusable="false" class="test" />
+</ui:UXML>
