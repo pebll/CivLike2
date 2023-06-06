@@ -1,4 +1,5 @@
 using Mono.Cecil;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -6,12 +7,14 @@ using UnityEngine.Tilemaps;
 
 public class TilemapManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _worldTilePrefab;
     public static TilemapManager Instance;
     private Tilemap _tilemap;
     private GameTile[,] _tiles;
     private int _mapWidth;
     private int _mapHeight;
     private Dictionary<string, TileSO> _tileDict = new Dictionary<string, TileSO>();
+    public const string TILE_ID = "tile";
     public Dictionary<string, TileSO> TileDict => _tileDict;
     public GameTile[,] Tiles => _tiles;
 
@@ -21,6 +24,8 @@ public class TilemapManager : MonoBehaviour
     private GameTile _lastMouseHoverTile;
     public GameTile MouseHoverTile => _mouseHoverTile;
     public GameTile LastMouseHoverTile => _lastMouseHoverTile;
+
+    public GameObject WorldTilePrefab=> _worldTilePrefab;
 
     private void Awake()
     {
@@ -92,8 +97,7 @@ public class TilemapManager : MonoBehaviour
 
     public Vector3 TileToScreenPos(Vector3Int tilePos)
     {
-        tilePos = new Vector3Int(tilePos.y, tilePos.x, 0);
-        Vector3 worldPos = _tilemap.CellToWorld(tilePos);
+        Vector3 worldPos = TileToWorldPos(tilePos);
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
         return screenPos;
     }
@@ -104,7 +108,16 @@ public class TilemapManager : MonoBehaviour
             return null;
         return _tiles[tilePos.x, tilePos.y];
     }
-    
 
+    public Vector3 TileToWorldPos(Vector3Int tilePos)
+    {
+        tilePos = new Vector3Int(tilePos.y, tilePos.x, 0);
+        Vector3 worldPos = _tilemap.CellToWorld(tilePos);
+        return worldPos;
+    }
 
+    public string getTileID(GameTile tile)
+    {
+        return TILE_ID + tile.Position.ToString();
+    }
 }

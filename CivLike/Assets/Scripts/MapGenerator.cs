@@ -46,7 +46,7 @@ public class MapGenerator : MonoBehaviour
     {
 
         _scales = new float[] { _WaterLevelScale, _TemperatureScale, _ElevationScale, _VegetationScale };        
-        GenerateMap(_mapWidth, _mapHeight, seed);
+        //GenerateMap(_mapWidth, _mapHeight, seed);
         
     }
 
@@ -88,6 +88,7 @@ public class MapGenerator : MonoBehaviour
         }
         // Load Tiles
         TilemapManager.Instance.Load();
+        UIManager.Instance.ToggleTileResourceDisplays();
     }
 
     private void GenerateWaterLevel(int mapIndex)
@@ -253,6 +254,7 @@ public class MapGenerator : MonoBehaviour
             }
         }
     }
+   
     private float[,,] GenerateNoiseMaps(float[] scales)
     {
         float[,,] noiseMaps = new float[NOISEMAP_AMOUNT, _mapWidth, _mapHeight];

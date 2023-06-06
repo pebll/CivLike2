@@ -295,6 +295,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1232963382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1232963383}
+  m_Layer: 0
+  m_Name: Tiles
+  m_TagString: Tiles
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1232963383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232963382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1429658880
 GameObject:
   m_ObjectHideFlags: 0
@@ -745,6 +776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6652a0ed81a85c44b692f1a6e83e0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _worldTilePrefab: {fileID: 6043308438033709762, guid: 2669164c7482ae44aa25f54865300ffd, type: 3}
 --- !u!1 &1907466744
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,6 +984,7 @@ MonoBehaviour:
   _stone: {fileID: -804600407, guid: 2c567f0d39ffe6c48bd2a691306fbcf2, type: 3}
   _displayPanel: {fileID: 6932316191986596769, guid: ea5f9a78934f11648af654c0a8a4be49, type: 3}
   _resourceImage: {fileID: 3756592337115873730, guid: ad0b153ffab67414dba857e9e2a921e9, type: 3}
+  _resourceSprite: {fileID: 2360883857272630184, guid: 89fb2a67461670b4abfb9b4f1c905b4b, type: 3}
   _baseWidth: 5
   _resourceSize: 10
   _resourceSpacing: 5

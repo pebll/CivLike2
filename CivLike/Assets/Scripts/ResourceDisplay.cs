@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class ResourceDisplay : MonoBehaviour
 {
+    public static ResourceDisplay Instance;
+
     [SerializeField] private Sprite _water;
     [SerializeField] private Sprite _grass;
     [SerializeField] private Sprite _sand;
@@ -16,19 +18,22 @@ public class ResourceDisplay : MonoBehaviour
 
     [SerializeField] private GameObject _displayPanel;
     [SerializeField] private Image _resourceImage;
+    [SerializeField] private SpriteRenderer _resourceSprite;
 
-    [SerializeField] private float _baseWidth = 0f;
-    [SerializeField] private float _resourceSize = 10f;
-    [SerializeField] private float _resourceSpacing = 5f;
+    private float _baseWidth = 0f;
+    private float _resourceSize = 10f;
+    private float _resourceSpacing = 5f;
+    private float _worldUIFactor = 0.01f;
 
 
-    public const string TILE_ID = "tile";
+
 
     private Dictionary<string, GameObject> _displayPanels = new Dictionary<string, GameObject>();
     private Dictionary<string, Sprite> _sprites= new Dictionary<string, Sprite>();
 
     private void Awake()
     {
+        Instance = this;
         _sprites["Water"] = _water;
         _sprites["Grass"] = _grass;
         _sprites["Sand"] = _sand;
@@ -37,25 +42,27 @@ public class ResourceDisplay : MonoBehaviour
         _sprites["Stone"] = _stone;
     }
 
-    private void AddDisplayPanel(string id, Vector3 pos, Dictionary<ResourceManager.Resource, int> resources)
+    private void AddDisplayPanel(string id, Vector3 pos, Dictionary<ResourceManager.Resource, int> resources, Transform parentTransform = null, bool worldUI = false)
     {
-    
+        Transform parent = parentTransform != null ? parentTransform : this.transform;
         float width = _baseWidth;
         //Create the panel
-        GameObject displayPanel = Instantiate(_displayPanel, this.transform);
+        GameObject displayPanel = Instantiate(new GameObject(), parent);
         displayPanel.transform.position = pos;
         displayPanel.name = id;
         _displayPanels[id] = displayPanel;
         // construct the panel
 
-        UpdateDisplayPanel(id, resources);
+        UpdateDisplayPanel(id, resources, worldUI);
 
     }
 
-    private void UpdateDisplayPanel(string id, Dictionary<ResourceManager.Resource, int> resources)
+    private void UpdateDisplayPanel(string id, Dictionary<ResourceManager.Resource, int> resources, bool worldUI = false)
     {
         GameObject displayPanel = _displayPanels[id];
+        // TODO: clear past resources
         int resourceAmount = 0;
+        List<SpriteRenderer> resourceSprites = new List<SpriteRenderer>();
         List<Image> resourceImages = new List<Image>();
         foreach (KeyValuePair<ResourceManager.Resource, int> entry in resources)
         {
@@ -67,11 +74,22 @@ public class ResourceDisplay : MonoBehaviour
                 {
                     resourceAmount++;
                     // add a resource image
-                    Image resourceImage = Instantiate(_resourceImage, displayPanel.transform);
-                    resourceImage.sprite = _sprites[resource.ToString()];
-                    Vector3 imagePos = new Vector3(resourceAmount * (_resourceSize + _resourceSpacing) - _resourceSpacing, 0, 0);
-                    resourceImage.transform.localPosition = imagePos;
-                    resourceImages.Add(resourceImage);
+                    if (worldUI)
+                    {
+                        SpriteRenderer resourceSprite = Instantiate(_resourceSprite, displayPanel.transform);
+                        resourceSprite.sprite = _sprites[resource.ToString()];
+                        Vector3 imagePos = new Vector3((resourceAmount * (_resourceSize + _resourceSpacing) - _resourceSpacing) * _worldUIFactor, 0, 0);
+                        resourceSprite.transform.localPosition = imagePos;
+                        resourceSprites.Add(resourceSprite);
+                    }
+                    else // Normal UI
+                    {
+                        Image resourceImage = Instantiate(_resourceImage, displayPanel.transform);
+                        resourceImage.sprite = _sprites[resource.ToString()];
+                        Vector3 imagePos = new Vector3(resourceAmount * (_resourceSize + _resourceSpacing) - _resourceSpacing, 0, 0);
+                        resourceImage.transform.localPosition = imagePos;
+                        resourceImages.Add(resourceImage);
+                    }
                 }
             }
             else
@@ -79,14 +97,15 @@ public class ResourceDisplay : MonoBehaviour
                 //stack em
             }
         }
-        // size (deactivate) the panel
-        //_displayPanel.transform.GetChild(0).localScale = new Vector3(_baseWidth + resourceAmount * (_resourceSize + _resourceSpacing) - _resourceSpacing, 1, 1);
-        _displayPanel.transform.GetChild(0).gameObject.SetActive(false);
         //shift it into place
-        Vector3 shiftAmount = new Vector3((_baseWidth + resourceAmount * (_resourceSize + _resourceSpacing)) / 2, 0, 0);
+        Vector3 shiftAmount = new Vector3(((_baseWidth + resourceAmount * (_resourceSize + _resourceSpacing)) / 2 ), 0, 0);
         foreach (Image resourceImage in resourceImages)
         {
             resourceImage.transform.localPosition -= shiftAmount;
+        }
+        foreach (SpriteRenderer resourceSprite in resourceSprites)
+        {
+            resourceSprite.transform.localPosition -= shiftAmount * _worldUIFactor;
         }
     }
 
@@ -108,21 +127,18 @@ public class ResourceDisplay : MonoBehaviour
    
     public void AddDisplayPanel(GameTile tile)
     {
-        string id = getTileID(tile);
-        Vector3 pos = TilemapManager.Instance.TileToScreenPos(tile.Position);
+        string id = TilemapManager.Instance.getTileID(tile);
+        Vector3 pos = TilemapManager.Instance.TileToWorldPos(tile.Position);
         Dictionary<ResourceManager.Resource, int> resources = tile.Yield;
-        AddDisplayPanel(id, pos, resources);    
+        AddDisplayPanel(id, pos, resources, tile.WorldTile.DisplayResourceParent, true);    
     }
 
     public void RemoveDisplayPanel(GameTile tile)
     {
-        RemoveDisplayPanel(getTileID(tile));    
+        RemoveDisplayPanel(TilemapManager.Instance.getTileID(tile));    
     }
 
-    public string getTileID(GameTile tile)
-    {
-        return TILE_ID + tile.Position.ToString();
-    }
+    
 
     private void DestroyAll(GameObject obj)
     {

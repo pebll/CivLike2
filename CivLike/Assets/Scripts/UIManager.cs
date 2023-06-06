@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private ResourceDisplay _resourceDisplay;
 
     private Button _showYieldButton;
-    private bool tileYieldHidden = true;
+    private bool tileYieldHidden = false;
 
     private void Awake()
     {
@@ -27,8 +27,6 @@ public class UIManager : MonoBehaviour
         _showYieldButton = root.Q<Button>("show-yields-button");
         _showYieldButton.clicked += ToggleTileResourceDisplays;
 
-        // TODO: Call in generate map
-        Invoke("CreateTileResourceDisplays",0.1f);
     }
 
     private void Update()
@@ -54,39 +52,22 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void CreateTileResourceDisplays()
-    {
-        for(int x = 0; x < TilemapManager.Instance.MapSize.width; x++)
-        {
-            for(int y = 0; y < TilemapManager.Instance.MapSize.height; y++)
-            {
-                GameTile tile = TilemapManager.Instance.GetTileFromPos(new Vector3Int(x,y,0));
-          
-                if (tile != null)
-                {
-                    _resourceDisplay.AddDisplayPanel(tile);
-                }
-            }
-        }
-        HideTileResourceDisplays();
-    }
-
     private void HideTileResourceDisplays()
     {
-        foreach(string id in _resourceDisplay.GetAllIDsOfType(ResourceDisplay.TILE_ID)){
+        foreach(string id in _resourceDisplay.GetAllIDsOfType(TilemapManager.TILE_ID)){
             _resourceDisplay.HideDisplayPanel(id);
         }
     }
 
     private void ShowTileResourceDisplays()
     {
-        foreach (string id in _resourceDisplay.GetAllIDsOfType(ResourceDisplay.TILE_ID))
+        foreach (string id in _resourceDisplay.GetAllIDsOfType(TilemapManager.TILE_ID))
         {
             _resourceDisplay.ShowDisplayPanel(id);
         }
     }
 
-    private void ToggleTileResourceDisplays()
+    public void ToggleTileResourceDisplays()
     {
         if (tileYieldHidden)
         {
