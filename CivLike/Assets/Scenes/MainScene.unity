@@ -1272,6 +1272,7 @@ MonoBehaviour:
   _displayPanel: {fileID: 6932316191986596769, guid: ea5f9a78934f11648af654c0a8a4be49, type: 3}
   _resourceImage: {fileID: 3756592337115873730, guid: ad0b153ffab67414dba857e9e2a921e9, type: 3}
   _resourceSprite: {fileID: 2360883857272630184, guid: 89fb2a67461670b4abfb9b4f1c905b4b, type: 3}
+  _displayPanelPrefab: {fileID: 8067125835659154976, guid: b8215fc97554ca84f80593fc1f965caf, type: 3}
 --- !u!1 &2056736029
 GameObject:
   m_ObjectHideFlags: 0
