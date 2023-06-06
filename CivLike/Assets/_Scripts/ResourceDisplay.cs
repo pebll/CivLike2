@@ -25,6 +25,8 @@ public class ResourceDisplay : MonoBehaviour
     private float _resourceSpacing = 5f;
     private float _worldUIFactor = 0.01f;
 
+    [SerializeField] private GameObject _displayPanelPrefab;
+
 
 
 
@@ -45,9 +47,8 @@ public class ResourceDisplay : MonoBehaviour
     private void AddDisplayPanel(string id, Vector3 pos, Dictionary<ResourceManager.Resource, int> resources, Transform parentTransform = null, bool worldUI = false)
     {
         Transform parent = parentTransform != null ? parentTransform : this.transform;
-        float width = _baseWidth;
         //Create the panel
-        GameObject displayPanel = Instantiate(new GameObject(), parent);
+        GameObject displayPanel = Instantiate(_displayPanelPrefab, parent);
         displayPanel.transform.position = pos;
         displayPanel.name = id;
         _displayPanels[id] = displayPanel;
