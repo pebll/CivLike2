@@ -5,7 +5,8 @@ using UnityEngine.Tilemaps;
 using UnityEditor;
 
 public class MapGenerator : MonoBehaviour
-{    
+{
+    [SerializeField] private bool _sandbox = false;
     [SerializeField] private int _mapWidth = 10;
     [SerializeField] private int _mapHeight = 6;
     private const int NOISEMAP_AMOUNT = 4;
@@ -44,9 +45,11 @@ public class MapGenerator : MonoBehaviour
 
     private void Update()
     {
-
-        _scales = new float[] { _WaterLevelScale, _TemperatureScale, _ElevationScale, _VegetationScale };        
-        //GenerateMap(_mapWidth, _mapHeight, seed);
+        if (_sandbox)
+        {
+            _scales = new float[] { _WaterLevelScale, _TemperatureScale, _ElevationScale, _VegetationScale };
+            GenerateMap(_mapWidth, _mapHeight, seed);
+        }
         
     }
 
@@ -82,7 +85,7 @@ public class MapGenerator : MonoBehaviour
             {
                 TileSO chosenTile = _chosenTiles[x,y];
                 Vector3Int position = new Vector3Int(x, y, 0);
-                GameTile tile = new GameTile(chosenTile, position);        
+                GameTile tile = new GameTile(chosenTile, position, !_sandbox);        
                 TilemapManager.Instance.AddTile(tile);
             }
         }

@@ -22,7 +22,7 @@ public class GameTile
 
     public Dictionary<ResourceManager.Resource, int> Yield => _yield;
     
-    public GameTile(TileSO tileSO, Vector3Int position)
+    public GameTile(TileSO tileSO, Vector3Int position, bool generateWorldTile = true)
     {
         // Tile properties
         _tile = tileSO.Tile;
@@ -35,8 +35,11 @@ public class GameTile
         _position = position;
 
         //Tile WorldObject
-        _worldTile = Object.Instantiate(TilemapManager.Instance.WorldTilePrefab, GameObject.FindGameObjectWithTag("Tiles").transform).GetComponent<WorldTile>();
-        _worldTile.Setup(this);
+        if (generateWorldTile)
+        {
+            _worldTile = Object.Instantiate(TilemapManager.Instance.WorldTilePrefab, GameObject.FindGameObjectWithTag("Tiles").transform).GetComponent<WorldTile>();
+            _worldTile.Setup(this);
+        }
     }
 
    

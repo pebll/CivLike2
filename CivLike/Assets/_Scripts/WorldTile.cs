@@ -16,7 +16,5 @@ public class WorldTile : MonoBehaviour
         name = TilemapManager.Instance.getTileID(tile);
 
         ResourceDisplay.Instance.AddDisplayPanel(tile);
-        //ResourceDisplay.Instance.HideDisplayPanel(name);
-
     }
 }
