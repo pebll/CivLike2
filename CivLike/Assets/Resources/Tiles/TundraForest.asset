@@ -15,4 +15,5 @@ MonoBehaviour:
   Tile: {fileID: 11400000, guid: 36a1472347039744f9b61f51239db03d, type: 2}
   Description: looks nice
   DisplayName: Boreal Forest
+  TileTypes: 010000000800000005000000
   Yield: 0300000005000000

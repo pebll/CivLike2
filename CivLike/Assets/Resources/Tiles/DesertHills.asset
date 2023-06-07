@@ -15,4 +15,5 @@ MonoBehaviour:
   Tile: {fileID: 11400000, guid: ee2de8244d3638d4a983005dcb1b7616, type: 2}
   Description: hilly desert
   DisplayName: 
+  TileTypes: 0200000006000000
   Yield: 0400000002000000

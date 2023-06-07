@@ -9,6 +9,7 @@ public class Building
     private string _description;
     private Kingdom _kingdom; 
     private Sprite _sprite;
+    // list of buildable tiles
     public Sprite Sprite => _sprite;
     
 

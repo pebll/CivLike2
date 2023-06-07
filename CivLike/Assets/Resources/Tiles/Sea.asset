@@ -15,4 +15,5 @@ MonoBehaviour:
   Tile: {fileID: 11400000, guid: 5654464c30d1a5c4dbb37751af6e555c, type: 2}
   Description: be careful with the sharks
   DisplayName: 
+  TileTypes: 00000000
   Yield: 0000000000000000

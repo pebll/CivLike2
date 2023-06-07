@@ -15,4 +15,5 @@ MonoBehaviour:
   Tile: {fileID: 11400000, guid: 1b0df784492637c46abe2d65ad8e4589, type: 2}
   Description: you can glide on the sand here
   DisplayName: 
+  TileTypes: 0100000006000000
   Yield: 0200000002000000

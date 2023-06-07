@@ -15,4 +15,5 @@ MonoBehaviour:
   Tile: {fileID: 11400000, guid: 5f0620f9ae508a04aa99c8fe93c88ee1, type: 2}
   Description: a cool grass tile
   DisplayName: 
+  TileTypes: 0100000004000000
   Yield: 0100000001000000

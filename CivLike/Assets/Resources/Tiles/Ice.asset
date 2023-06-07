@@ -15,4 +15,5 @@ MonoBehaviour:
   Tile: {fileID: 11400000, guid: b274c1bfb3eb16a4c84241755d2a469a, type: 2}
   Description: is melting too fast
   DisplayName: Ice floe
+  TileTypes: 0000000005000000
   Yield: 0300000000000000

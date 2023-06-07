@@ -15,4 +15,5 @@ MonoBehaviour:
   Tile: {fileID: 11400000, guid: b43355d427f528d4687e06400e028e8e, type: 2}
   Description: a lot of trees
   DisplayName: 
+  TileTypes: 010000000400000008000000
   Yield: 0500000005000000

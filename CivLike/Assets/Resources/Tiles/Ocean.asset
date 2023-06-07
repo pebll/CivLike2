@@ -15,4 +15,5 @@ MonoBehaviour:
   Tile: {fileID: 11400000, guid: 6a3e0d2008641f64b92bb4e7db2987d0, type: 2}
   Description: be careful no to drown
   DisplayName: 
+  TileTypes: 00000000
   Yield: 00000000

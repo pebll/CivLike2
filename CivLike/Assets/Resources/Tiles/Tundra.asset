@@ -15,4 +15,5 @@ MonoBehaviour:
   Tile: {fileID: 11400000, guid: 2965925240d22a34a8d6e1a670c95b2a, type: 2}
   Description: kinda chilly here
   DisplayName: 
+  TileTypes: 0100000005000000
   Yield: 0300000003000000

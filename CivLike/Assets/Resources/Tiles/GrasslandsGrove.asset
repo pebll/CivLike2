@@ -15,4 +15,5 @@ MonoBehaviour:
   Tile: {fileID: 11400000, guid: 747743a2fb39b934eb899d877d4e1518, type: 2}
   Description: 'a little less '
   DisplayName: 
+  TileTypes: 010000000400000007000000
   Yield: 0100000005000000

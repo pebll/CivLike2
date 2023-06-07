@@ -15,4 +15,5 @@ MonoBehaviour:
   Tile: {fileID: 11400000, guid: 08165442da5aeff468a9257d50a36c0b, type: 2}
   Description: 
   DisplayName: 
+  TileTypes: 020000000600000007000000
   Yield: 020000000400000005000000
