@@ -39,7 +39,7 @@ public class MapGenerator : MonoBehaviour
     void Start()
     {
         _scales = new float[] { _WaterLevelScale, _TemperatureScale, _ElevationScale, _VegetationScale };
-        _tileDict = TilemapManager.Instance.TileDict;       
+        _tileDict = SOManager.Instance.TileDict;       
         GenerateMap(_mapWidth, _mapHeight, seed);      
     }
 

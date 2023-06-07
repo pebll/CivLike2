@@ -12,7 +12,7 @@ public class ResourceManager : MonoBehaviour
     }
 
     public enum Resource 
-    { Water, Grass, Sand, Snow, Stone, Wood }
+    { Water, Grass, Sand, Snow, Stone, Wood, Joker }
 
     // RESOURCE FORMAT: Dictionary<Resource resource, int amount>
     // Dictionary<Resource, int>

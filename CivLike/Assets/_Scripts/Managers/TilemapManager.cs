@@ -1,5 +1,3 @@
-using Mono.Cecil;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -13,9 +11,7 @@ public class TilemapManager : MonoBehaviour
     private GameTile[,] _tiles;
     private int _mapWidth;
     private int _mapHeight;
-    private Dictionary<string, TileSO> _tileDict = new Dictionary<string, TileSO>();
     public const string TILE_ID = "tile";
-    public Dictionary<string, TileSO> TileDict => _tileDict;
     public GameTile[,] Tiles => _tiles;
 
     public (int width, int height) MapSize => (_mapWidth, _mapHeight);
@@ -30,12 +26,7 @@ public class TilemapManager : MonoBehaviour
     private void Awake()
     {
         Instance= this;
-        _tilemap= GetComponent<Tilemap>();
-        TileSO[] tileArray = Resources.LoadAll<TileSO>("Tiles");
-        foreach(TileSO tileSO in tileArray)
-        {
-            _tileDict.Add(tileSO.name, tileSO);
-        }
+        _tilemap= GetComponent<Tilemap>();       
     }
 
     private void Update()
