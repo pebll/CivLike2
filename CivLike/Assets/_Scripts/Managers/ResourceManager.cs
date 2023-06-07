@@ -17,7 +17,7 @@ public class ResourceManager : MonoBehaviour
     // RESOURCE FORMAT: Dictionary<Resource resource, int amount>
     // Dictionary<Resource, int>
 
-    private Dictionary<Resource, int> GetEmptyResourceDict()
+    public Dictionary<Resource, int> GetEmptyResourceDict()
     {
         Dictionary<Resource, int> resourceDict = new Dictionary<Resource, int>();
         foreach (Resource resource in System.Enum.GetValues(typeof(Resource)))

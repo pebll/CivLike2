@@ -1,7 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +12,7 @@ public class ResourceDisplay : MonoBehaviour
     [SerializeField] private Sprite _wood;
     [SerializeField] private Sprite _snow;
     [SerializeField] private Sprite _stone;
+    [SerializeField] private Sprite _joker;
 
     [SerializeField] private GameObject _displayPanel;
     [SerializeField] private Image _resourceImage;
@@ -42,6 +40,7 @@ public class ResourceDisplay : MonoBehaviour
         _sprites["Wood"] = _wood;
         _sprites["Snow"] = _snow;
         _sprites["Stone"] = _stone;
+        _sprites["Joker"] = _joker;
     }
 
     private void AddDisplayPanel(string id, Vector3 pos, Dictionary<ResourceManager.Resource, int> resources, Transform parentTransform = null, bool worldUI = false)
@@ -61,7 +60,7 @@ public class ResourceDisplay : MonoBehaviour
     private void UpdateDisplayPanel(string id, Dictionary<ResourceManager.Resource, int> resources, bool worldUI = false)
     {
         GameObject displayPanel = _displayPanels[id];
-        // TODO: clear past resources
+        Helpers.DestroyAllChildren(displayPanel);
         int resourceAmount = 0;
         List<SpriteRenderer> resourceSprites = new List<SpriteRenderer>();
         List<Image> resourceImages = new List<Image>();
@@ -122,7 +121,7 @@ public class ResourceDisplay : MonoBehaviour
  
     private void RemoveDisplayPanel(string id)
     {
-        DestroyAll(_displayPanels[id].gameObject);
+        Helpers.DestroyAll(_displayPanels[id].gameObject);
         _displayPanels.Remove(id);
     }
    
@@ -139,15 +138,11 @@ public class ResourceDisplay : MonoBehaviour
         RemoveDisplayPanel(TilemapManager.Instance.getTileID(tile));    
     }
 
-    
-
-    private void DestroyAll(GameObject obj)
+    public void UpdateDisplayPanel(GameTile tile)
     {
-        foreach (Transform child in obj.transform)
-        {
-            DestroyAll(child.gameObject);
-        }
-        Destroy(obj);
+        string id = TilemapManager.Instance.getTileID(tile);
+        Dictionary<ResourceManager.Resource, int> resources = tile.Yield;
+        UpdateDisplayPanel(id, resources, true);
     }
 
     public List<string> GetAllIDsOfType(string type)

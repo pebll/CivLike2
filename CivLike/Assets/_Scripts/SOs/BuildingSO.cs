@@ -11,6 +11,8 @@ public class BuildingSO : ScriptableObject
     public string DisplayName;
     public List<ResourceManager.Resource> Production;
     public bool removeTileYield = false;
+    public List<TilemapManager.TileType> MustHaveTileTypes;
+    public List<TilemapManager.TileType> CannotHaveTileTypes;
 
     public string GetName()
     {
