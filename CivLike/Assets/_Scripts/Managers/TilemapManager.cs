@@ -14,19 +14,6 @@ public class TilemapManager : MonoBehaviour
     public const string TILE_ID = "tile";
     public GameTile[,] Tiles => _tiles;
 
-    public enum TileType
-    {
-        Sea,
-        Flat,
-        Hilly,
-        Mountain,
-        Grass,
-        Snow,
-        Desert,
-        Grove,
-        Forest
-    }
-
     public (int width, int height) MapSize => (_mapWidth, _mapHeight);
 
     private GameTile _mouseHoverTile;

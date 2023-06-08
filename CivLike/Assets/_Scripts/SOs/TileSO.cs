@@ -9,6 +9,6 @@ public class TileSO : ScriptableObject
     public Tile Tile;
     public string Description;
     public string DisplayName;
-    public List<TilemapManager.TileType> TileTypes;
+    public List<Constants.TileType> TileTypes;
     public List<ResourceManager.Resource> Yield;
 }

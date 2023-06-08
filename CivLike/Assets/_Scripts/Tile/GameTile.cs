@@ -9,16 +9,16 @@ public class GameTile
 {
     private TileSO _tileSO;
     private Tile _tile;
-    private string _description;
     private Dictionary<ResourceManager.Resource, int> _yield;
     private string _name;
     private Vector3Int _position;
     private WorldTile _worldTile;
     private Building _building;
     public Vector3Int Position => _position;
-    public string Description => _description;
     public Tile Tile => _tile;
     public WorldTile WorldTile => _worldTile;
+    public Building Building => _building;
+    public TileSO TileSO => _tileSO;
 
 
 
@@ -29,7 +29,6 @@ public class GameTile
         // Tile properties
         _tileSO= tileSO;
         _tile = tileSO.Tile;
-        _description = tileSO.Description;
         _yield = GetRawTileYield();
         _name = tileSO.name;
   

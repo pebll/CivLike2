@@ -17,3 +17,5 @@ MonoBehaviour:
   DisplayName: 
   Production: 06000000
   removeTileYield: 1
+  MustHaveTileTypes: 
+  CannotHaveTileTypes: 0000000003000000
