@@ -9,12 +9,13 @@ public class Kingdom
     private Color _color;
 
     private List<GameTile> _tiles;
-    private List<City> _cities;
+    private List<City> _cities = new List<City>();
 
-    private void AddCity(GameTile position, List<GameTile> tiles, string name = null)
+    public void AddCity(GameTile position, List<GameTile> tiles, string name = null)
     {
-        City city = new City(this, position, tiles, name);
+        City city = BuildingManager.Instance.AddBuilding<City>(this, position, SOManager.Instance.BuildingDict["City"]);
         _cities.Add(city);
+        city.Setup(tiles, name);
     }
 
 }

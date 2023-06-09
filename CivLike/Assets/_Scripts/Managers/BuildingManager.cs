@@ -14,12 +14,22 @@ public class BuildingManager : MonoBehaviour
         Instance = this;
     }
 
-    public void AddBuilding(Kingdom kingdom, GameTile tile, BuildingSO buildingSO)
+    public T AddBuilding<T>(Kingdom kingdom, GameTile tile, BuildingSO buildingSO) where T : Building
     {
-        if(!CanBuild(tile, buildingSO)) { return; }
-        Building building = new Building(kingdom, tile, buildingSO);
+        if (!CanBuild(tile, buildingSO)) { return null; }
+        T building = System.Activator.CreateInstance(typeof(T), kingdom, tile, buildingSO) as T;
         _buildings.Add(building);
+        return building;
     }
+
+    public Building AddBuilding(Kingdom kingdom, GameTile tile, BuildingSO buildingSO)
+    {
+        return AddBuilding<Building>(kingdom, tile, buildingSO);
+    }
+
+
+   
+    
 
     public void RemoveBuilding(GameTile tile)
     {
@@ -32,6 +42,7 @@ public class BuildingManager : MonoBehaviour
         _buildings.Remove(building);
         tile.RemoveBuilding();
         }
+    
     }
 
     public bool CanBuild(GameTile tile, BuildingSO buildingSO)

@@ -13,7 +13,8 @@ public class TestManager : MonoBehaviour
     private void Test()
     {
         GameTile tile = TilemapManager.Instance.GetTileFromPos(new Vector3Int(5, 5, 0));
-        City city = new City(new Kingdom(), tile, new List<GameTile>(), null);
+        Kingdom kingdom = new Kingdom();
+        kingdom.AddCity(tile, new List<GameTile>() { tile }, "Gargantua");
     }
    
 }
