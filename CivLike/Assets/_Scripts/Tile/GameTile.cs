@@ -66,14 +66,7 @@ public class GameTile
     private void UpdateYield(Dictionary<ResourceManager.Resource, int> addYield, bool resetBeforeAdding = false)
     {
         // change yield dict
-        if (resetBeforeAdding)
-        {
-            _yield = ResourceManager.Instance.GetEmptyResourceDict();
-        }
-        foreach (KeyValuePair<ResourceManager.Resource, int> entry in addYield)
-        {
-            _yield[entry.Key] += entry.Value;
-        }
+        _yield = ResourceManager.Instance.UpdateResourceDict(_yield, addResources: addYield, resetBeforeAdding: resetBeforeAdding);
         // update display
         ResourceDisplay.Instance.UpdateDisplayPanel(this);
 
