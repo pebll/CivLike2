@@ -79,4 +79,9 @@ public class UIManager : MonoBehaviour
         }
         tileYieldHidden = !tileYieldHidden;
     }
+
+    internal void UpdateKingdomResourceDisplay(Dictionary<ResourceManager.Resource, int> resources)
+    {
+        throw new NotImplementedException();
+    }
 }
