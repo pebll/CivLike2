@@ -1,5 +1,5 @@
+using Assets._Scripts.Logic.Managers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-
+        
     }
 
     [Obsolete]
@@ -80,8 +80,8 @@ public class UIManager : MonoBehaviour
         tileYieldHidden = !tileYieldHidden;
     }
 
-    internal void UpdateKingdomResourceDisplay(Dictionary<ResourceManager.Resource, int> resources)
+    public void UpdateKingdomResourceDisplay(Dictionary<ResourceManager.Resource, int> resources)
     {
-        throw new NotImplementedException();
+        
     }
 }

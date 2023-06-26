@@ -7,6 +7,7 @@ public class TilemapManager : MonoBehaviour
 {
     [SerializeField] private GameObject _worldTilePrefab;
     public static TilemapManager Instance;
+    [SerializeField]
     private Tilemap _tilemap;
     private GameTile[,] _tiles;
     private int _mapWidth;
@@ -25,8 +26,7 @@ public class TilemapManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance= this;
-        _tilemap= GetComponent<Tilemap>();       
+        Instance= this;    
     }
 
     private void Update()
